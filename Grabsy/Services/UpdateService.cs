@@ -19,10 +19,6 @@ public static class UpdateService
 {
     private const string Repo = "Sidiusz/yt-dlp-gui";
     private static readonly string ApiLatestUrl = $"https://api.github.com/repos/{Repo}/releases/latest";
-    private static readonly string WebLatestUrl = $"https://github.com/{Repo}/releases/latest";
-    // Raw fallback (clients still read these when the API is unreachable).
-    private static readonly string UpdateJsonUrl = $"https://raw.githubusercontent.com/{Repo}/main/update.json";
-    private static readonly string ChangelogUrl = $"https://raw.githubusercontent.com/{Repo}/main/changelog.txt";
     public static string ReleasesPage => $"https://github.com/{Repo}/releases";
 
     private static readonly HttpClient _http;
@@ -60,7 +56,6 @@ public static class UpdateService
 
     public static async Task<UpdateCheckResult> CheckLatestAsync()
     {
-        // 1) GitHub Releases API (primary).
         var apiBody = await FetchTextAsync(ApiLatestUrl, "application/vnd.github+json");
         if (apiBody == "__404__") return new UpdateCheckResult(UpdateCheckStatus.NoReleases, null);
         if (apiBody != null)
@@ -68,13 +63,7 @@ public static class UpdateService
             var info = ParseApiRelease(apiBody);
             if (info != null) return new UpdateCheckResult(UpdateCheckStatus.Found, info);
         }
-
-        // 2) Raw update.json (fallback when the API is unreachable / blocked).
-        var jsonInfo = await CheckViaUpdateJsonAsync();
-        if (jsonInfo != null) return new UpdateCheckResult(UpdateCheckStatus.Found, jsonInfo);
-
-        // 3) Web redirect of /releases/latest (last resort).
-        return await CheckViaWebRedirectAsync();
+        return new UpdateCheckResult(UpdateCheckStatus.Failed, null);
     }
 
     private static UpdateInfo? ParseApiRelease(string json)
@@ -107,50 +96,6 @@ public static class UpdateService
             return new UpdateInfo(tag.TrimStart('v', 'V'), url, notes, installerUrl, installerName);
         }
         catch { return null; }
-    }
-
-    // Fallback source: a hand-maintained update.json {version,url,filename,notes}.
-    private static async Task<UpdateInfo?> CheckViaUpdateJsonAsync()
-    {
-        var body = await FetchTextAsync(UpdateJsonUrl);
-        if (body == null || body == "__404__") return null;
-        try
-        {
-            using var doc = JsonDocument.Parse(body);
-            var root = doc.RootElement;
-            var ver = root.TryGetProperty("version", out var v) ? v.GetString() : null;
-            var url = root.TryGetProperty("url", out var u) ? u.GetString() : null;
-            if (string.IsNullOrEmpty(ver) || string.IsNullOrEmpty(url)) return null;
-            var name = root.TryGetProperty("filename", out var f) ? f.GetString() : null;
-            var notes = root.TryGetProperty("notes", out var n) ? n.GetString() ?? "" : "";
-            if (string.IsNullOrEmpty(notes))
-            {
-                var cl = await FetchTextAsync(ChangelogUrl);
-                if (cl != null && cl != "__404__") notes = cl.Trim();
-            }
-            return new UpdateInfo(ver.TrimStart('v', 'V'), ReleasesPage, notes, url, name);
-        }
-        catch { return null; }
-    }
-
-    private static async Task<UpdateCheckResult> CheckViaWebRedirectAsync()
-    {
-        try
-        {
-            using var handler = new HttpClientHandler { AllowAutoRedirect = false };
-            using var http = new HttpClient(handler) { Timeout = TimeSpan.FromSeconds(12) };
-            http.DefaultRequestHeaders.UserAgent.ParseAdd($"Grabsy/{CurrentVersion()}");
-            using var resp = await http.GetAsync(Bust(WebLatestUrl), HttpCompletionOption.ResponseHeadersRead);
-            var location = resp.Headers.Location?.ToString();
-            if (string.IsNullOrEmpty(location)) return new UpdateCheckResult(UpdateCheckStatus.Failed, null);
-            const string marker = "/releases/tag/";
-            int idx = location.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
-            if (idx < 0) return new UpdateCheckResult(UpdateCheckStatus.NoReleases, null);
-            var tag = location[(idx + marker.Length)..].Trim('/');
-            if (string.IsNullOrEmpty(tag)) return new UpdateCheckResult(UpdateCheckStatus.NoReleases, null);
-            return new UpdateCheckResult(UpdateCheckStatus.Found, new UpdateInfo(tag.TrimStart('v', 'V'), location, "", null, null));
-        }
-        catch { return new UpdateCheckResult(UpdateCheckStatus.Failed, null); }
     }
 
     public static bool IsNewer(string remote, string current)

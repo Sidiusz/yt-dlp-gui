@@ -16,13 +16,16 @@ public sealed class BridgeServer
     private readonly Func<string, string, string, string> _start;   // url, mode, quality -> id
     private readonly Func<string, JobStatus?> _status;              // id -> status
     private readonly Action<string> _cancel;                        // id -> cancel
+    private readonly Func<(string mode, string quality)> _config;   // app's preferred defaults
     private HttpListener? _listener;
 
-    public BridgeServer(Func<string, string, string, string> start, Func<string, JobStatus?> status, Action<string> cancel)
+    public BridgeServer(Func<string, string, string, string> start, Func<string, JobStatus?> status,
+        Action<string> cancel, Func<(string mode, string quality)> config)
     {
         _start = start;
         _status = status;
         _cancel = cancel;
+        _config = config;
     }
 
     public void Start()
@@ -67,6 +70,13 @@ public sealed class BridgeServer
             case "/ping":
                 Write(resp, "{\"app\":\"grabsy\"}");
                 return;
+
+            case "/config":
+            {
+                var (mode, quality) = _config();
+                Write(resp, $"{{\"mode\":\"{Esc(mode)}\",\"quality\":\"{Esc(quality)}\"}}");
+                return;
+            }
 
             case "/download":
             {

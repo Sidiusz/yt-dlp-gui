@@ -22,9 +22,9 @@ Use grep/search first. Map is authoritative.
 - `SettingsService.cs` - AppSettings model + JSON persistence (LocalAppData\Grabsy)
 - `BinaryManager.cs` - download/update/remove yt-dlp + ffmpeg into LocalAppData\Grabsy\bin (never PATH)
 - `YtDlpService.cs` - probe (-J) + download with progress parse; DownloadOptions + arg builder (codec sort, trim sections, all-langs, 403 retry flags); pre-resolves exact output path so Play opens the real file
-- `UpdateService.cs` - app self-update CHECK only (download is manual): cache-busted GitHub Releases API → raw update.json/changelog fallback → web-redirect; OpenDownload opens the .exe asset/releases page in the browser
-- `NotificationService.cs` - download/update notifications; tray balloon is primary (unpackaged toasts register but never display), AppNotification toast only as last resort
-- `BridgeServer.cs` - loopback HTTP listener (127.0.0.1:47821) for the browser userscript: /ping, /download?url=&mode=&quality= (background job, returns id), /status?id= (progress/state poll), /cancel?id=
+- `UpdateService.cs` - app self-update CHECK only (download is manual): cache-busted GitHub Releases API; OpenDownload opens the .exe asset/releases page in the browser
+- `NotificationService.cs` - download/update notifications via a self-drawn ToastWindow (Clipsy port); SetHost(DispatcherQueue) gives it a UI thread; queues/stacks/repositions toasts. (Windows toasts dropped — never displayed unpackaged)
+- `BridgeServer.cs` - loopback HTTP listener (127.0.0.1:47821) for the browser userscript: /ping, /config (app's preferred mode+quality), /download?url=&mode=&quality= (background job, returns id), /status?id= (progress/state poll), /cancel?id=
 - `RelayCommand.cs` - minimal ICommand (tray left-click)
 - `ThemeService.cs` - apply dark/light to registered window roots; GetBrush themed lookup
 - `Converters.cs` - StringToBitmap, BoolToVisibility
@@ -34,6 +34,7 @@ Use grep/search first. Map is authoritative.
 
 ### Views/
 - `SettingsWindow.xaml` / `.cs` - Clipsy-style left-nav (940x640, sidebar+tip, Reset/Close/Save footer, mini-toggles): General (language/theme/folder/after/app-mgmt), Video, Audio, Subtitles, Notifications, Components (yt-dlp/ffmpeg install/update/remove), About. Save persists without closing; ApplyLocalization (en/ru) with live language preview
+- `ToastWindow.xaml` / `.cs` - self-drawn notification toast (layered top-most window, slide-in, auto-dismiss, stacking) ported from Clipsy; used by NotificationService
 - `TrayMenuWindow.xaml` / `.cs` - custom tray popup ported literally from Clipsy (layered popup, DWM cloak, cursor positioning, fade-in, hover/press rows): Paste & download / Open Grabsy / Open video folder / Settings / Exit
 
 ### Localization/
@@ -46,7 +47,7 @@ Use grep/search first. Map is authoritative.
 ### Assets/
 - `Fonts/Onest-VariableFont_wght.ttf` - app font
 - `Icons/grabsy.ico` - placeholder app icon
-- `grabsy.user.js` - Tampermonkey userscript (v3): "Grabsy" button left of the YouTube like bar (and round button in the Shorts action bar) → popover with mode/quality/Download; no floating button; calls bridge, polls /status, in-page progress toast with real % and Cancel (→/cancel), auto-closes 5s; app-missing → opens GitHub releases; @updateURL/@downloadURL = GitHub raw for auto-update
+- `grabsy.user.js` - Tampermonkey userscript (v3): "Grabsy" button left of the YouTube like bar (and round button in the Shorts action bar) → popover with mode/quality/Download; no floating button; calls bridge, polls /status, in-page progress toast with real % and Cancel (→/cancel), auto-closes 5s; popover follows its button on scroll; defaults pulled from /config; app-missing → opens GitHub releases; @updateURL/@downloadURL = GitHub raw for auto-update
 
 ## Data locations (runtime)
 - Settings: `%LocalAppData%\Grabsy\settings.json`

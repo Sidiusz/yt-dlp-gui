@@ -47,6 +47,7 @@ public sealed partial class MainWindow : Window
             RefreshStats();
         };
 
+        NotificationService.SetHost(DispatcherQueue);   // draw toasts on this UI thread
         SetInfoEnabled(false);   // enabled after a successful probe
         SetupWindow();
         SetupTray();
@@ -102,8 +103,17 @@ public sealed partial class MainWindow : Window
 
     private void StartBridge()
     {
-        _bridge = new BridgeServer(BridgeStart, BridgeStatus, BridgeCancel);
+        _bridge = new BridgeServer(BridgeStart, BridgeStatus, BridgeCancel, BridgeConfig);
         _bridge.Start();
+    }
+
+    // Userscript reads these as its default mode/quality (kept in sync with settings).
+    private (string mode, string quality) BridgeConfig()
+    {
+        var s = _settings.Settings;
+        var mode = s.PreferredMode == "audio" ? "audio" : "videoaudio";
+        var quality = string.IsNullOrEmpty(s.PreferredQuality) ? "best" : s.PreferredQuality;
+        return (mode, quality);
     }
 
     // Called on the listener thread: cancel the running bridge job.
@@ -189,11 +199,6 @@ public sealed partial class MainWindow : Window
             TrayIcon.LeftClickCommand = new RelayCommand(ShowFromTray);
             TrayIcon.RightClickCommand = new RelayCommand(ShowTrayMenu);
             TrayIcon.ForceCreate();
-            // Reliable fallback when WindowsAppSDK toasts aren't available.
-            NotificationService.SetTrayFallback((t, b) =>
-            {
-                try { TrayIcon.ShowNotification(t, b); } catch { }
-            });
         }
         catch { }
     }
@@ -240,7 +245,7 @@ public sealed partial class MainWindow : Window
                 && result.Info.Version != s.SkippedAppVersion
                 && s.NotifyUpdateAvailable)
             {
-                NotificationService.Show("Grabsy update available", $"Version {result.Info.Version} is ready. Open Settings → About.");
+                NotificationService.Show("Grabsy update available", $"Version {result.Info.Version} is ready. Open Settings → About.", NotificationService.Kind.Update);
             }
         }
         catch { }

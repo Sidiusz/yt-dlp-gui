@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grabsy Downloader
 // @namespace    https://github.com/Sidiusz/yt-dlp-gui
-// @version      3.0.0
+// @version      3.1.0
 // @description  One-click background downloads to the Grabsy desktop app, embedded next to the YouTube like bar (and the Shorts action bar).
 // @author       Sidiusz
 // @match        *://*.youtube.com/*
@@ -130,10 +130,40 @@
         });
     }
 
+    // ---------- app config (preferred mode/quality from the app's settings) ----------
+    let cfg = { mode: "videoaudio", quality: "best" };
+    function loadConfig() {
+        if (!xhr) return;
+        xhr({
+            method: "GET", url: BASE + "/config", timeout: 4000,
+            onload: (r) => { try { const c = JSON.parse(r.responseText); if (c.mode) cfg.mode = c.mode; if (c.quality) cfg.quality = c.quality; } catch (e) {} },
+            onerror: () => {}, ontimeout: () => {},
+        });
+    }
+
     // ---------- popover (mode + quality + download) ----------
-    let openPop = null;
-    function closePop() { if (openPop) { openPop.remove(); openPop = null; document.removeEventListener("mousedown", onDocDown, true); } }
+    let openPop = null, popAnchor = null;
+    function closePop() {
+        if (!openPop) return;
+        openPop.remove(); openPop = null; popAnchor = null;
+        document.removeEventListener("mousedown", onDocDown, true);
+        window.removeEventListener("scroll", reposPop, true);
+        window.removeEventListener("resize", reposPop, true);
+    }
     function onDocDown(e) { if (openPop && !openPop.contains(e.target) && !e.target.closest(".grabsy-trigger")) closePop(); }
+
+    // Keep the popover glued to its button as the page scrolls.
+    function reposPop() {
+        if (!openPop || !popAnchor) return;
+        const r = popAnchor.getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) { closePop(); return; }   // anchor gone
+        const pw = 210, ph = openPop.offsetHeight || 170;
+        let left = r.left, top = r.bottom + 8;
+        if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+        if (top + ph > window.innerHeight - 8) top = r.top - ph - 8;
+        openPop.style.left = Math.max(8, left) + "px";
+        openPop.style.top = Math.max(8, top) + "px";
+    }
 
     function sel(options) {
         const s = document.createElement("select");
@@ -170,6 +200,10 @@
         ]);
         mode.addEventListener("change", () => { quality.style.display = mode.value === "audio" ? "none" : ""; });
 
+        // Default to the app's preferred mode/quality (synced via /config).
+        mode.value = cfg.mode; quality.value = cfg.quality;
+        quality.style.display = mode.value === "audio" ? "none" : "";
+
         const btn = document.createElement("button");
         btn.textContent = "↓ Download";
         btn.style.cssText =
@@ -179,18 +213,14 @@
 
         pop.append(title, mode, quality, btn);
         document.body.appendChild(pop);
-        openPop = pop;
+        openPop = pop; popAnchor = anchor;
+        reposPop();
 
-        // Anchor under/left of the trigger, clamped to the viewport.
-        const r = anchor.getBoundingClientRect();
-        const pw = 210, ph = pop.offsetHeight || 170;
-        let left = r.left, top = r.bottom + 8;
-        if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
-        if (top + ph > window.innerHeight - 8) top = r.top - ph - 8;
-        pop.style.left = Math.max(8, left) + "px";
-        pop.style.top = Math.max(8, top) + "px";
-
-        setTimeout(() => document.addEventListener("mousedown", onDocDown, true), 0);
+        setTimeout(() => {
+            document.addEventListener("mousedown", onDocDown, true);
+            window.addEventListener("scroll", reposPop, true);
+            window.addEventListener("resize", reposPop, true);
+        }, 0);
     }
 
     // ---------- watch page: button left of the like bar ----------
@@ -243,4 +273,6 @@
 
     setInterval(tick, 1500);
     tick();
+    loadConfig();
+    setInterval(loadConfig, 30000);   // keep defaults in sync with the app
 })();
