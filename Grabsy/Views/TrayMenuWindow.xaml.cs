@@ -243,14 +243,14 @@ public sealed partial class TrayMenuWindow : Window
         if (!_parts.TryGetValue(row, out var p)) return;
 
         var accent = ThemeService.GetBrush("GrabsyAccentBrush", Content as FrameworkElement);
-        var black = new SolidColorBrush(Colors.Black);
+        var white = new SolidColorBrush(Colors.White);
         var textBrush = ThemeService.GetBrush("GrabsyTextBrush", Content as FrameworkElement);
         var iconBrush = ThemeService.GetBrush("GrabsyText2Brush", Content as FrameworkElement);
 
         row.Background = on ? accent : s_transparent;
-        p.Label.Foreground = on ? black : textBrush;
+        p.Label.Foreground = on ? white : textBrush;
         if (p.Icon is FontIcon fi)
-            fi.Foreground = on ? black : iconBrush;
+            fi.Foreground = on ? white : iconBrush;
     }
 
     // ─── Click handlers ───

@@ -208,7 +208,7 @@
         btn.textContent = "↓ Download";
         btn.style.cssText =
             "padding:8px 16px;border:none;border-radius:8px;cursor:pointer;" +
-            "font:600 13px system-ui,sans-serif;color:#000;background:" + ACCENT + ";";
+            "font:600 13px system-ui,sans-serif;color:#fff;background:" + ACCENT + ";";
         btn.addEventListener("click", () => { start(mode.value, quality.value); closePop(); });
 
         pop.append(title, mode, quality, btn);
@@ -236,7 +236,7 @@
         b.title = "Download with Grabsy";
         b.style.cssText =
             "display:inline-flex;align-items:center;height:36px;margin-right:8px;padding:0 16px;border:none;" +
-            "border-radius:18px;cursor:pointer;font:600 14px Roboto,system-ui,sans-serif;color:#000;" +
+            "border-radius:18px;cursor:pointer;font:600 14px Roboto,system-ui,sans-serif;color:#fff;" +
             "background:" + ACCENT + ";white-space:nowrap;flex:none;";
         b.addEventListener("click", (e) => { e.stopPropagation(); togglePopover(b); });
         row.insertBefore(b, row.firstChild);
@@ -256,7 +256,7 @@
             b.title = "Download with Grabsy";
             b.style.cssText =
                 "width:48px;height:48px;border:none;border-radius:50%;cursor:pointer;" +
-                "font:700 20px system-ui,sans-serif;color:#000;background:" + ACCENT + ";";
+                "font:700 20px system-ui,sans-serif;color:#fff;background:" + ACCENT + ";";
             b.addEventListener("click", (e) => { e.stopPropagation(); togglePopover(b); });
             const cap = document.createElement("div");
             cap.textContent = "Grabsy";

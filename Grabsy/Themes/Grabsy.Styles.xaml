@@ -99,9 +99,9 @@
 
     <Style x:Key="GrabsyButtonPrimary" TargetType="Button" BasedOn="{StaticResource GrabsyButton}">
         <Setter Property="Background" Value="{ThemeResource GrabsyAccentBrush}" />
-        <!-- Black text on amber for legibility; the inherited template
-             swaps Background to hover/pressed stops but leaves foreground. -->
-        <Setter Property="Foreground" Value="Black" />
+        <!-- White text on the accent; the inherited template swaps Background
+             to hover/pressed stops but leaves foreground. -->
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -324,7 +324,7 @@
                                 <VisualState x:Name="Pressed">
                                     <VisualState.Setters>
                                         <Setter Target="RootGrid.Background" Value="{ThemeResource GrabsyAccentBrush}" />
-                                        <Setter Target="ContentPresenter.Foreground" Value="Black" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="White" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">

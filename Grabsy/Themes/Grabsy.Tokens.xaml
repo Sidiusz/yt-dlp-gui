@@ -37,9 +37,8 @@
             <Color x:Key="GrabsyText3">#FF9AA0AB</Color>
             <Color x:Key="GrabsyText4">#FF70737C</Color>
 
-            <!-- Brand accent: amber/orange. Hover slightly lighter, Pressed
-                 darker, Dim = same hue at low alpha for subtle backgrounds. -->
-            <Color x:Key="GrabsyAccent">#FFF8006B</Color>
+            <!-- Brand accent -->
+            <Color x:Key="GrabsyAccent">#FB0A4B6B</Color>
             <Color x:Key="GrabsyAccentHover">#FFFF3D90</Color>
             <Color x:Key="GrabsyAccentPressed">#FFC80057</Color>
             <Color x:Key="GrabsyAccentDim">#28F8006B</Color>
