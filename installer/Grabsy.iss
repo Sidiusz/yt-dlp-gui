@@ -14,7 +14,7 @@
 #endif
 
 [Setup]
-AppId={{E5F4D9A0-9F4A-4B3D-9F5E-3B7C0E2B7F11}}
+AppId={{5330CE8D-A38F-4883-85DC-A5F5DDDB1F58}}
 AppName={#GrabsyName}
 AppVersion={#GrabsyVersion}
 AppPublisher={#GrabsyPublisher}
