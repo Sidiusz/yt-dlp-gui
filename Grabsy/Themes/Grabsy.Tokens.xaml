@@ -38,7 +38,7 @@
             <Color x:Key="GrabsyText4">#FF70737C</Color>
 
             <!-- Brand accent -->
-            <Color x:Key="GrabsyAccent">#FB0A4B6B</Color>
+            <Color x:Key="GrabsyAccent">#FB0A4B</Color>
             <Color x:Key="GrabsyAccentHover">#FFFF3D90</Color>
             <Color x:Key="GrabsyAccentPressed">#FFC80057</Color>
             <Color x:Key="GrabsyAccentDim">#28F8006B</Color>
