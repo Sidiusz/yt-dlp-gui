@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Grabsy design tokens.
+  Surface stack, semantic colors, brushes, type tokens, radii, font families.
+
+  Color/brush tokens live in ThemeDictionaries (Default = dark, Light) so the
+  app can switch themes at runtime. Consumers must reference brushes with
+  {ThemeResource ...}, not {StaticResource ...}, or they will not re-resolve
+  when the theme changes. Non-color tokens (fonts, sizes, radii) stay shared.
+-->
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    >
+
+    <ResourceDictionary.ThemeDictionaries>
+
+        <!-- ===================== DARK (Default) ===================== -->
+        <ResourceDictionary x:Key="Default">
+            <!-- Colors: surface stack -->
+            <Color x:Key="GrabsyBg0">#FF1A1B1E</Color>
+            <Color x:Key="GrabsyBg1">#FF232428</Color>
+            <Color x:Key="GrabsyBg2">#FF2B2D31</Color>
+            <Color x:Key="GrabsyBg3">#FF35373C</Color>
+            <Color x:Key="GrabsyBgInput">#FF1E1F22</Color>
+            <Color x:Key="GrabsyBgHover">#FF393B40</Color>
+            <Color x:Key="GrabsyBgActive">#FF404249</Color>
+
+            <!-- Borders -->
+            <Color x:Key="GrabsyBorderSubtle">#FF1F2023</Color>
+            <Color x:Key="GrabsyBorder">#FF3F4147</Color>
+            <Color x:Key="GrabsyBorderStrong">#FF4E5058</Color>
+
+            <!-- Text -->
+            <Color x:Key="GrabsyText">#FFF2F3F5</Color>
+            <Color x:Key="GrabsyText2">#FFC7CCD4</Color>
+            <Color x:Key="GrabsyText3">#FF9AA0AB</Color>
+            <Color x:Key="GrabsyText4">#FF70737C</Color>
+
+            <!-- Brand accent: amber/orange. Hover slightly lighter, Pressed
+                 darker, Dim = same hue at low alpha for subtle backgrounds. -->
+            <Color x:Key="GrabsyAccent">#FFE87D0D</Color>
+            <Color x:Key="GrabsyAccentHover">#FFFF9333</Color>
+            <Color x:Key="GrabsyAccentPressed">#FFC66808</Color>
+            <Color x:Key="GrabsyAccentDim">#28E87D0D</Color>
+            <Color x:Key="GrabsyAccentDimStrong">#3DE87D0D</Color>
+
+            <!-- Semantic -->
+            <Color x:Key="GrabsyDanger">#FFF23F42</Color>
+            <Color x:Key="GrabsyDangerHover">#FFD43539</Color>
+            <Color x:Key="GrabsyDangerDim">#28F23F42</Color>
+            <Color x:Key="GrabsySuccess">#FF23A55A</Color>
+            <Color x:Key="GrabsyWarning">#FFF0B232</Color>
+
+            <!-- Selection on capture overlay (alpha for cut-outs) -->
+            <Color x:Key="GrabsyOverlayDim">#800A0B0D</Color>
+            <Color x:Key="GrabsyOverlayPanel">#F0232428</Color>
+
+            <!-- Brushes -->
+            <SolidColorBrush x:Key="GrabsyBg0Brush"            Color="{StaticResource GrabsyBg0}" />
+            <SolidColorBrush x:Key="GrabsyBg1Brush"            Color="{StaticResource GrabsyBg1}" />
+            <SolidColorBrush x:Key="GrabsyBg2Brush"            Color="{StaticResource GrabsyBg2}" />
+            <SolidColorBrush x:Key="GrabsyBg3Brush"            Color="{StaticResource GrabsyBg3}" />
+            <SolidColorBrush x:Key="GrabsyBgInputBrush"        Color="{StaticResource GrabsyBgInput}" />
+            <SolidColorBrush x:Key="GrabsyBgHoverBrush"        Color="{StaticResource GrabsyBgHover}" />
+            <SolidColorBrush x:Key="GrabsyBgActiveBrush"       Color="{StaticResource GrabsyBgActive}" />
+
+            <SolidColorBrush x:Key="GrabsyBorderSubtleBrush"   Color="{StaticResource GrabsyBorderSubtle}" />
+            <SolidColorBrush x:Key="GrabsyBorderBrush"         Color="{StaticResource GrabsyBorder}" />
+            <SolidColorBrush x:Key="GrabsyBorderStrongBrush"   Color="{StaticResource GrabsyBorderStrong}" />
+
+            <SolidColorBrush x:Key="GrabsyTextBrush"           Color="{StaticResource GrabsyText}" />
+            <SolidColorBrush x:Key="GrabsyText2Brush"          Color="{StaticResource GrabsyText2}" />
+            <SolidColorBrush x:Key="GrabsyText3Brush"          Color="{StaticResource GrabsyText3}" />
+            <SolidColorBrush x:Key="GrabsyText4Brush"          Color="{StaticResource GrabsyText4}" />
+
+            <SolidColorBrush x:Key="GrabsyAccentBrush"         Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="GrabsyAccentHoverBrush"    Color="{StaticResource GrabsyAccentHover}" />
+            <SolidColorBrush x:Key="GrabsyAccentPressedBrush"  Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="GrabsyAccentDimBrush"      Color="{StaticResource GrabsyAccentDim}" />
+            <SolidColorBrush x:Key="GrabsyAccentDimStrongBrush" Color="{StaticResource GrabsyAccentDimStrong}" />
+            <!-- Codec / RadioCard checked fill — amber tint at low alpha -->
+            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33E87D0D" />
+
+            <SolidColorBrush x:Key="GrabsyDangerBrush"         Color="{StaticResource GrabsyDanger}" />
+            <SolidColorBrush x:Key="GrabsyDangerHoverBrush"    Color="{StaticResource GrabsyDangerHover}" />
+            <SolidColorBrush x:Key="GrabsyDangerDimBrush"      Color="{StaticResource GrabsyDangerDim}" />
+            <SolidColorBrush x:Key="GrabsySuccessBrush"        Color="{StaticResource GrabsySuccess}" />
+            <SolidColorBrush x:Key="GrabsyWarningBrush"        Color="{StaticResource GrabsyWarning}" />
+            <SolidColorBrush x:Key="GrabsyWarningDimBrush"     Color="#28F0B232" />
+
+            <SolidColorBrush x:Key="GrabsyOverlayDimBrush"     Color="{StaticResource GrabsyOverlayDim}" />
+            <SolidColorBrush x:Key="GrabsyOverlayPanelBrush"   Color="{StaticResource GrabsyOverlayPanel}" />
+
+            <!-- Knob/contrast color that must stay readable on the accent -->
+            <SolidColorBrush x:Key="GrabsyOnAccentBrush"       Color="#FFF2F3F5" />
+
+            <!-- WinUI default overrides -->
+            <StaticResource x:Key="ApplicationPageBackgroundThemeBrush" ResourceKey="GrabsyBg1Brush" />
+            <StaticResource x:Key="TextFillColorPrimaryBrush"   ResourceKey="GrabsyTextBrush" />
+            <StaticResource x:Key="TextFillColorSecondaryBrush" ResourceKey="GrabsyText2Brush" />
+            <StaticResource x:Key="TextFillColorTertiaryBrush"  ResourceKey="GrabsyText3Brush" />
+            <StaticResource x:Key="SystemAccentColor"           ResourceKey="GrabsyAccent" />
+            <StaticResource x:Key="AccentFillColorDefaultBrush" ResourceKey="GrabsyAccentBrush" />
+            <StaticResource x:Key="AccentFillColorSecondaryBrush" ResourceKey="GrabsyAccentHoverBrush" />
+            <StaticResource x:Key="AccentFillColorTertiaryBrush"  ResourceKey="GrabsyAccentPressedBrush" />
+
+            <StaticResource x:Key="ComboBoxBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundPressed"     ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundDisabled"    ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundUnfocused"   ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundFocused"     ResourceKey="GrabsyBgInputBrush" />
+
+            <StaticResource x:Key="TextControlBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundFocused"     ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundDisabled"    ResourceKey="GrabsyBgInputBrush" />
+
+            <StaticResource x:Key="ComboBoxBorderBrush"            ResourceKey="GrabsyBorderSubtleBrush" />
+            <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="ComboBoxBorderBrushPressed"     ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="TextControlBorderBrush"             ResourceKey="GrabsyBorderSubtleBrush" />
+            <StaticResource x:Key="TextControlBorderBrushPointerOver"  ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="TextControlBorderBrushFocused"      ResourceKey="GrabsyAccentBrush" />
+
+            <StaticResource x:Key="ComboBoxDropDownBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxItemBackground"                ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundPointerOver"     ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundPressed"         ResourceKey="GrabsyBgActiveBrush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelected"        ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelectedPointerOver" ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelectedPressed"     ResourceKey="GrabsyBgActiveBrush" />
+
+            <!-- MenuFlyout: brand accent hover with black text -->
+            <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver"   Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPressed"       Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver"   Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemForegroundPressed"       Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver" Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed"     Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundPointerOver"     Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundPressed"         Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundSubMenuOpened"   Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundPointerOver"     Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundPressed"         Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundSubMenuOpened"   Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronPointerOver"        Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronPressed"            Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronSubMenuOpened"      Color="Black" />
+        </ResourceDictionary>
+
+        <!-- ===================== LIGHT ===================== -->
+        <ResourceDictionary x:Key="Light">
+            <!-- Colors: surface stack (inverted) -->
+            <Color x:Key="GrabsyBg0">#FFE3E5E8</Color>
+            <Color x:Key="GrabsyBg1">#FFF2F3F5</Color>
+            <Color x:Key="GrabsyBg2">#FFEBEDEF</Color>
+            <Color x:Key="GrabsyBg3">#FFDFE2E6</Color>
+            <Color x:Key="GrabsyBgInput">#FFFFFFFF</Color>
+            <Color x:Key="GrabsyBgHover">#FFD7DADF</Color>
+            <Color x:Key="GrabsyBgActive">#FFCDD1D6</Color>
+
+            <!-- Borders -->
+            <Color x:Key="GrabsyBorderSubtle">#FFDBDEE2</Color>
+            <Color x:Key="GrabsyBorder">#FFC4C9CF</Color>
+            <Color x:Key="GrabsyBorderStrong">#FFAEB4BC</Color>
+
+            <!-- Text -->
+            <Color x:Key="GrabsyText">#FF1E1F22</Color>
+            <Color x:Key="GrabsyText2">#FF4E5058</Color>
+            <Color x:Key="GrabsyText3">#FF6D7178</Color>
+            <Color x:Key="GrabsyText4">#FFA8ADB4</Color>
+
+            <!-- Accent: same brand amber; pressed darker for contrast on light -->
+            <Color x:Key="GrabsyAccent">#FFE87D0D</Color>
+            <Color x:Key="GrabsyAccentHover">#FFD97408</Color>
+            <Color x:Key="GrabsyAccentPressed">#FFB85F06</Color>
+            <Color x:Key="GrabsyAccentDim">#28E87D0D</Color>
+            <Color x:Key="GrabsyAccentDimStrong">#3DE87D0D</Color>
+
+            <!-- Semantic -->
+            <Color x:Key="GrabsyDanger">#FFD93C3F</Color>
+            <Color x:Key="GrabsyDangerHover">#FFBC3134</Color>
+            <Color x:Key="GrabsyDangerDim">#28F23F42</Color>
+            <Color x:Key="GrabsySuccess">#FF1D8E4E</Color>
+            <Color x:Key="GrabsyWarning">#FFCC8F12</Color>
+
+            <!-- Capture overlay stays dark regardless of theme; same values -->
+            <Color x:Key="GrabsyOverlayDim">#800A0B0D</Color>
+            <Color x:Key="GrabsyOverlayPanel">#F0232428</Color>
+
+            <!-- Brushes -->
+            <SolidColorBrush x:Key="GrabsyBg0Brush"            Color="{StaticResource GrabsyBg0}" />
+            <SolidColorBrush x:Key="GrabsyBg1Brush"            Color="{StaticResource GrabsyBg1}" />
+            <SolidColorBrush x:Key="GrabsyBg2Brush"            Color="{StaticResource GrabsyBg2}" />
+            <SolidColorBrush x:Key="GrabsyBg3Brush"            Color="{StaticResource GrabsyBg3}" />
+            <SolidColorBrush x:Key="GrabsyBgInputBrush"        Color="{StaticResource GrabsyBgInput}" />
+            <SolidColorBrush x:Key="GrabsyBgHoverBrush"        Color="{StaticResource GrabsyBgHover}" />
+            <SolidColorBrush x:Key="GrabsyBgActiveBrush"       Color="{StaticResource GrabsyBgActive}" />
+
+            <SolidColorBrush x:Key="GrabsyBorderSubtleBrush"   Color="{StaticResource GrabsyBorderSubtle}" />
+            <SolidColorBrush x:Key="GrabsyBorderBrush"         Color="{StaticResource GrabsyBorder}" />
+            <SolidColorBrush x:Key="GrabsyBorderStrongBrush"   Color="{StaticResource GrabsyBorderStrong}" />
+
+            <SolidColorBrush x:Key="GrabsyTextBrush"           Color="{StaticResource GrabsyText}" />
+            <SolidColorBrush x:Key="GrabsyText2Brush"          Color="{StaticResource GrabsyText2}" />
+            <SolidColorBrush x:Key="GrabsyText3Brush"          Color="{StaticResource GrabsyText3}" />
+            <SolidColorBrush x:Key="GrabsyText4Brush"          Color="{StaticResource GrabsyText4}" />
+
+            <SolidColorBrush x:Key="GrabsyAccentBrush"         Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="GrabsyAccentHoverBrush"    Color="{StaticResource GrabsyAccentHover}" />
+            <SolidColorBrush x:Key="GrabsyAccentPressedBrush"  Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="GrabsyAccentDimBrush"      Color="{StaticResource GrabsyAccentDim}" />
+            <SolidColorBrush x:Key="GrabsyAccentDimStrongBrush" Color="{StaticResource GrabsyAccentDimStrong}" />
+            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33E87D0D" />
+
+            <SolidColorBrush x:Key="GrabsyDangerBrush"         Color="{StaticResource GrabsyDanger}" />
+            <SolidColorBrush x:Key="GrabsyDangerHoverBrush"    Color="{StaticResource GrabsyDangerHover}" />
+            <SolidColorBrush x:Key="GrabsyDangerDimBrush"      Color="{StaticResource GrabsyDangerDim}" />
+            <SolidColorBrush x:Key="GrabsySuccessBrush"        Color="{StaticResource GrabsySuccess}" />
+            <SolidColorBrush x:Key="GrabsyWarningBrush"        Color="{StaticResource GrabsyWarning}" />
+            <SolidColorBrush x:Key="GrabsyWarningDimBrush"     Color="#28F0B232" />
+
+            <SolidColorBrush x:Key="GrabsyOverlayDimBrush"     Color="{StaticResource GrabsyOverlayDim}" />
+            <SolidColorBrush x:Key="GrabsyOverlayPanelBrush"   Color="{StaticResource GrabsyOverlayPanel}" />
+
+            <SolidColorBrush x:Key="GrabsyOnAccentBrush"       Color="#FFFFFFFF" />
+
+            <!-- WinUI default overrides -->
+            <StaticResource x:Key="ApplicationPageBackgroundThemeBrush" ResourceKey="GrabsyBg1Brush" />
+            <StaticResource x:Key="TextFillColorPrimaryBrush"   ResourceKey="GrabsyTextBrush" />
+            <StaticResource x:Key="TextFillColorSecondaryBrush" ResourceKey="GrabsyText2Brush" />
+            <StaticResource x:Key="TextFillColorTertiaryBrush"  ResourceKey="GrabsyText3Brush" />
+            <StaticResource x:Key="SystemAccentColor"           ResourceKey="GrabsyAccent" />
+            <StaticResource x:Key="AccentFillColorDefaultBrush" ResourceKey="GrabsyAccentBrush" />
+            <StaticResource x:Key="AccentFillColorSecondaryBrush" ResourceKey="GrabsyAccentHoverBrush" />
+            <StaticResource x:Key="AccentFillColorTertiaryBrush"  ResourceKey="GrabsyAccentPressedBrush" />
+
+            <StaticResource x:Key="ComboBoxBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundPointerOver" ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundPressed"     ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundDisabled"    ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundUnfocused"   ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxBackgroundFocused"     ResourceKey="GrabsyBgInputBrush" />
+
+            <StaticResource x:Key="TextControlBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundPointerOver" ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundFocused"     ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="TextControlBackgroundDisabled"    ResourceKey="GrabsyBgInputBrush" />
+
+            <StaticResource x:Key="ComboBoxBorderBrush"            ResourceKey="GrabsyBorderSubtleBrush" />
+            <StaticResource x:Key="ComboBoxBorderBrushPointerOver" ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="ComboBoxBorderBrushPressed"     ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="TextControlBorderBrush"             ResourceKey="GrabsyBorderSubtleBrush" />
+            <StaticResource x:Key="TextControlBorderBrushPointerOver"  ResourceKey="GrabsyBorderBrush" />
+            <StaticResource x:Key="TextControlBorderBrushFocused"      ResourceKey="GrabsyAccentBrush" />
+
+            <StaticResource x:Key="ComboBoxDropDownBackground"            ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxItemBackground"                ResourceKey="GrabsyBgInputBrush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundPointerOver"     ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundPressed"         ResourceKey="GrabsyBgActiveBrush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelected"        ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelectedPointerOver" ResourceKey="GrabsyBg3Brush" />
+            <StaticResource x:Key="ComboBoxItemBackgroundSelectedPressed"     ResourceKey="GrabsyBgActiveBrush" />
+
+            <!-- MenuFlyout: accent hover, black text reads fine on amber -->
+            <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPointerOver"   Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutItemBackgroundPressed"       Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="MenuFlyoutItemForegroundPointerOver"   Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemForegroundPressed"       Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver" Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed"     Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundPointerOver"     Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundPressed"         Color="{StaticResource GrabsyAccentPressed}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemBackgroundSubMenuOpened"   Color="{StaticResource GrabsyAccent}" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundPointerOver"     Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundPressed"         Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemForegroundSubMenuOpened"   Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronPointerOver"        Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronPressed"            Color="Black" />
+            <SolidColorBrush x:Key="MenuFlyoutSubItemChevronSubMenuOpened"      Color="Black" />
+        </ResourceDictionary>
+
+    </ResourceDictionary.ThemeDictionaries>
+
+    <!-- ===== Type tokens (theme-independent) ===== -->
+    <x:String x:Key="GrabsyFontFamily">ms-appx:///Assets/Fonts/Onest-VariableFont_wght.ttf#Onest, Inter, Segoe UI, sans-serif</x:String>
+    <x:String x:Key="GrabsyFontFamilyMono">JetBrains Mono, Cascadia Mono, Consolas, monospace</x:String>
+
+    <x:Double x:Key="GrabsyFontSizeBody">13</x:Double>
+    <x:Double x:Key="GrabsyFontSizeHelper">11</x:Double>
+    <x:Double x:Key="GrabsyFontSizeLabel">11</x:Double>
+    <x:Double x:Key="GrabsyFontSizeTitle">20</x:Double>
+    <x:Double x:Key="GrabsyFontSizeHero">26</x:Double>
+
+    <FontWeight x:Key="GrabsyFontWeightBody">Normal</FontWeight>
+    <FontWeight x:Key="GrabsyFontWeightStrong">SemiBold</FontWeight>
+    <FontWeight x:Key="GrabsyFontWeightTitle">SemiBold</FontWeight>
+    <FontWeight x:Key="GrabsyFontWeightLabel">SemiBold</FontWeight>
+    <FontWeight x:Key="GrabsyFontWeightHeavy">Bold</FontWeight>
+
+    <!-- ===== Radius ===== -->
+    <CornerRadius x:Key="GrabsyRadiusXs">3</CornerRadius>
+    <CornerRadius x:Key="GrabsyRadiusSm">4</CornerRadius>
+    <CornerRadius x:Key="GrabsyRadiusMd">6</CornerRadius>
+    <CornerRadius x:Key="GrabsyRadiusLg">8</CornerRadius>
+    <CornerRadius x:Key="GrabsyRadiusXl">12</CornerRadius>
+
+    <!-- ===== Sizes ===== -->
+    <x:Double x:Key="GrabsyToolButtonSize">32</x:Double>
+    <x:Double x:Key="GrabsyToolGlyphSize">16</x:Double>
+    <x:Double x:Key="GrabsyControlHeight">30</x:Double>
+    <x:Double x:Key="GrabsyControlHeightSm">26</x:Double>
+
+</ResourceDictionary>
+

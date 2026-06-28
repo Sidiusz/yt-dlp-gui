@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Grabsy.Views.TrayMenuWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid x:Name="RootGrid"
+          Background="{ThemeResource GrabsyBg2Brush}"
+          Width="264">
+        <StackPanel Padding="6,6,6,4">
+
+            <!-- ── Header ── -->
+            <Grid Margin="2,4,2,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Width="32" Height="32" CornerRadius="8"
+                        Background="{ThemeResource GrabsyAccentBrush}"
+                        VerticalAlignment="Top" Margin="0,2,0,0" />
+                <StackPanel Grid.Column="1" Margin="10,0,10,0"
+                            VerticalAlignment="Center" Spacing="1">
+                    <TextBlock Text="Grabsy" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}"
+                               Foreground="{ThemeResource GrabsyTextBrush}"
+                               FontFamily="{StaticResource GrabsyFontFamily}"/>
+                    <TextBlock x:Name="HeaderVersion" FontSize="11"
+                               Foreground="{ThemeResource GrabsyText3Brush}"
+                               FontFamily="{StaticResource GrabsyFontFamily}"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- ── Separator 1 ── -->
+            <Rectangle Height="1" Margin="2,0,2,4"
+                       Fill="{ThemeResource GrabsyBorderBrush}" Opacity="0.7"/>
+
+            <!-- ── Paste & download ── -->
+            <Grid x:Name="PasteRow" Height="34" Margin="0,1" CornerRadius="6"
+                  Background="Transparent"
+                  Tapped="OnPasteClick"
+                  PointerEntered="OnItemPointerEntered" PointerExited="OnItemPointerExited"
+                  PointerPressed="OnItemPointerPressed" PointerReleased="OnItemPointerReleased">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon x:Name="PasteIcon" Glyph="&#xE896;" FontSize="15"
+                          Foreground="{ThemeResource GrabsyText2Brush}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="PasteTxt" Grid.Column="1"
+                           FontSize="13" Foreground="{ThemeResource GrabsyTextBrush}"
+                           FontFamily="{StaticResource GrabsyFontFamily}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- ── Separator 2 ── -->
+            <Rectangle Height="1" Margin="2,4,2,4"
+                       Fill="{ThemeResource GrabsyBorderBrush}" Opacity="0.7"/>
+
+            <!-- ── Open Grabsy ── -->
+            <Grid x:Name="OpenRow" Height="34" Margin="0,1" CornerRadius="6"
+                  Background="Transparent"
+                  Tapped="OnOpenClick"
+                  PointerEntered="OnItemPointerEntered" PointerExited="OnItemPointerExited"
+                  PointerPressed="OnItemPointerPressed" PointerReleased="OnItemPointerReleased">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon x:Name="OpenIcon" Glyph="&#xE7C4;" FontSize="15"
+                          Foreground="{ThemeResource GrabsyText2Brush}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="OpenTxt" Grid.Column="1"
+                           FontSize="13" Foreground="{ThemeResource GrabsyTextBrush}"
+                           FontFamily="{StaticResource GrabsyFontFamily}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- ── Open videos folder ── -->
+            <Grid x:Name="VideoFolderRow" Height="34" Margin="0,1" CornerRadius="6"
+                  Background="Transparent"
+                  Tapped="OnOpenVideoFolderClick"
+                  PointerEntered="OnItemPointerEntered" PointerExited="OnItemPointerExited"
+                  PointerPressed="OnItemPointerPressed" PointerReleased="OnItemPointerReleased">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon x:Name="VideoFolderIcon" Glyph="&#xE8B2;" FontSize="15"
+                          Foreground="{ThemeResource GrabsyText2Brush}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="VideoFolderTxt" Grid.Column="1"
+                           FontSize="13" Foreground="{ThemeResource GrabsyTextBrush}"
+                           FontFamily="{StaticResource GrabsyFontFamily}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- ── Settings ── -->
+            <Grid x:Name="SettingsRow" Height="34" Margin="0,1" CornerRadius="6"
+                  Background="Transparent"
+                  Tapped="OnSettingsClick"
+                  PointerEntered="OnItemPointerEntered" PointerExited="OnItemPointerExited"
+                  PointerPressed="OnItemPointerPressed" PointerReleased="OnItemPointerReleased">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon x:Name="SettingsIcon" Glyph="&#xE713;" FontSize="15"
+                          Foreground="{ThemeResource GrabsyText2Brush}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="SettingsTxt" Grid.Column="1"
+                           FontSize="13" Foreground="{ThemeResource GrabsyTextBrush}"
+                           FontFamily="{StaticResource GrabsyFontFamily}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- ── Separator 3 ── -->
+            <Rectangle Height="1" Margin="2,4,2,4"
+                       Fill="{ThemeResource GrabsyBorderBrush}" Opacity="0.7"/>
+
+            <!-- ── Exit ── -->
+            <Grid x:Name="ExitRow" Height="34" Margin="0,1,0,2" CornerRadius="6"
+                  Background="Transparent"
+                  Tapped="OnExitClick"
+                  PointerEntered="OnItemPointerEntered" PointerExited="OnItemPointerExited"
+                  PointerPressed="OnItemPointerPressed" PointerReleased="OnItemPointerReleased">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <FontIcon x:Name="ExitIcon" Glyph="&#xE7E8;" FontSize="15"
+                          Foreground="{ThemeResource GrabsyText2Brush}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="ExitTxt" Grid.Column="1"
+                           FontSize="13" Foreground="{ThemeResource GrabsyTextBrush}"
+                           FontFamily="{StaticResource GrabsyFontFamily}"
+                           VerticalAlignment="Center"/>
+            </Grid>
+
+        </StackPanel>
+    </Grid>
+</Window>

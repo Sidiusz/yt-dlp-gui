@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Grabsy App.xaml
+  Merge theme dictionaries globally. XamlControlsResources FIRST so our
+  token overrides win for SystemAccentColor, TextFill*, etc.
+-->
+<Application
+    x:Class="Grabsy.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <muxc:XamlControlsResources />
+                <ResourceDictionary Source="ms-appx:///Themes/Grabsy.Tokens.xaml" />
+                <ResourceDictionary Source="ms-appx:///Themes/Grabsy.Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Grabsy.Views.SettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <Grid Background="{ThemeResource GrabsyBg0Brush}">
+        <Grid.Resources>
+            <Style TargetType="TextBox" BasedOn="{StaticResource GrabsyTextBox}">
+                <Setter Property="FontFamily" Value="{StaticResource GrabsyFontFamily}" />
+                <Setter Property="CornerRadius" Value="{StaticResource GrabsyRadiusMd}" />
+            </Style>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource GrabsyComboBox}">
+                <Setter Property="FontFamily" Value="{StaticResource GrabsyFontFamily}" />
+                <Setter Property="CornerRadius" Value="{StaticResource GrabsyRadiusMd}" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- ============== Custom titlebar ============== -->
+        <Grid x:Name="AppTitleBar" Grid.Row="0"
+              Background="{ThemeResource GrabsyBg0Brush}"
+              BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}"
+              BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="12,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <Border Width="18" Height="18" CornerRadius="5" Background="{ThemeResource GrabsyAccentBrush}" />
+                <TextBlock Text="Grabsy" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}"
+                           Foreground="{ThemeResource GrabsyTextBrush}" VerticalAlignment="Center" />
+                <TextBlock Text="·" FontSize="14" Foreground="{ThemeResource GrabsyText3Brush}" VerticalAlignment="Center" />
+                <TextBlock x:Name="SubtitleText" Text="Settings" FontSize="13" Foreground="{ThemeResource GrabsyText2Brush}" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- ============== Body ============== -->
+        <Grid Grid.Row="1" Background="{ThemeResource GrabsyBg0Brush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- ============== Sidebar ============== -->
+            <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                    Background="{ThemeResource GrabsyBg0Brush}"
+                    BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}"
+                    BorderThickness="0,0,1,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="NavHeaderText" Grid.Row="0" Text="SETTINGS" Style="{StaticResource GrabsyLabel}" Margin="18,18,18,10" />
+
+                    <StackPanel x:Name="NavList" Grid.Row="1" Spacing="0" Padding="0,4">
+                        <RadioButton x:Name="NavGeneral" Tag="general" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" IsChecked="True" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconGeneral" Grid.Column="0" Glyph="&#xE713;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavGeneralTxt" Grid.Column="1" Text="General" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavVideo" Tag="video" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconVideo" Grid.Column="0" Glyph="&#xE714;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavVideoTxt" Grid.Column="1" Text="Video" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavAudio" Tag="audio" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconAudio" Grid.Column="0" Glyph="&#xE8D6;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavAudioTxt" Grid.Column="1" Text="Audio" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavSubs" Tag="subs" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconSubs" Grid.Column="0" Glyph="&#xED1E;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavSubsTxt" Grid.Column="1" Text="Subtitles" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavNotifications" Tag="notifications" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconNotifications" Grid.Column="0" Glyph="&#xEA8F;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavNotificationsTxt" Grid.Column="1" Text="Notifications" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavComponents" Tag="components" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconComponents" Grid.Column="0" Glyph="&#xE74C;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavComponentsTxt" Grid.Column="1" Text="Components" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="NavAbout" Tag="about" Style="{StaticResource GrabsyNavRadio}"
+                                     GroupName="GrabsyNav" Checked="OnNavChecked">
+                            <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="28" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <FontIcon x:Name="IconAbout" Grid.Column="0" Glyph="&#xE946;" FontSize="16" VerticalAlignment="Center" />
+                                <TextBlock x:Name="NavAboutTxt" Grid.Column="1" Text="About" FontSize="13" VerticalAlignment="Center" />
+                            </Grid>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <Border Grid.Row="2" Background="{ThemeResource GrabsyBg1Brush}"
+                            BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}" BorderThickness="1"
+                            CornerRadius="6" Margin="12,12,12,16" Padding="10">
+                        <StackPanel Spacing="3">
+                            <TextBlock x:Name="TipLabelText" Text="TIP" Style="{StaticResource GrabsyLabel}" />
+                            <TextBlock x:Name="TipBodyText" Text="Paste a link in the main window and press Enter to fetch instantly."
+                                       Style="{StaticResource GrabsyHelper}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ============== Content ============== -->
+            <Border Grid.Row="0" Grid.Column="1" Background="{ThemeResource GrabsyBg1Brush}">
+                <ScrollViewer Padding="32,28,32,20" VerticalScrollBarVisibility="Auto">
+                    <Grid>
+
+                        <!-- ===== General ===== -->
+                        <StackPanel x:Name="PaneGeneral" Spacing="16" HorizontalAlignment="Stretch">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="GenTitleText" Text="General" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="GenSubText" Text="Language, theme, and where files are saved." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                                <FontIcon Glyph="&#xE774;" FontSize="16" VerticalAlignment="Center" Foreground="{ThemeResource GrabsyText2Brush}" />
+                                                <TextBlock x:Name="LangTitleText" Text="Language" Style="{StaticResource GrabsyBodyStrong}" />
+                                            </StackPanel>
+                                            <TextBlock x:Name="LangDescText" Text="Auto-detect follows the system language." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ComboBox x:Name="LangBox" Grid.Column="1" Width="240" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnLangChanged">
+                                            <ComboBoxItem x:Name="LangItemAuto" Content="Auto-detect" Tag="auto" />
+                                            <ComboBoxItem Content="English" Tag="en" />
+                                            <ComboBoxItem Content="Русский" Tag="ru" />
+                                        </ComboBox>
+                                    </Grid>
+
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="ThemeTitleText" Text="Theme" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="ThemeDescText" Text="Applies instantly, no restart needed." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <Border Grid.Column="1" Background="{ThemeResource GrabsyBgInputBrush}"
+                                                BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}" BorderThickness="1"
+                                                CornerRadius="6" Padding="3" VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Spacing="2">
+                                                <ToggleButton x:Name="ThemeBtnAuto" Style="{StaticResource GrabsySegmentBtn}" Tag="auto" Click="OnThemeSegmentClick" Content="Auto" />
+                                                <ToggleButton x:Name="ThemeBtnDark" Style="{StaticResource GrabsySegmentBtn}" Tag="dark" Click="OnThemeSegmentClick">
+                                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                                        <FontIcon Glyph="&#xE708;" FontSize="13" />
+                                                        <TextBlock x:Name="ThemeDarkTxt" Text="Dark" />
+                                                    </StackPanel>
+                                                </ToggleButton>
+                                                <ToggleButton x:Name="ThemeBtnLight" Style="{StaticResource GrabsySegmentBtn}" Tag="light" Click="OnThemeSegmentClick">
+                                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                                        <FontIcon Glyph="&#xE706;" FontSize="13" />
+                                                        <TextBlock x:Name="ThemeLightTxt" Text="Light" />
+                                                    </StackPanel>
+                                                </ToggleButton>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <StackPanel Spacing="10">
+                                        <TextBlock x:Name="FolderTitleText" Text="Download folder" Style="{StaticResource GrabsyBodyStrong}" />
+                                        <Grid ColumnSpacing="6">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                            <TextBox x:Name="FolderBox" Grid.Column="0" IsReadOnly="True" />
+                                            <Button x:Name="BrowseButton" Grid.Column="1" Style="{StaticResource GrabsyButtonGhost}" Content="Browse" Click="OnBrowseFolder" />
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="AfterTitleText" Text="After-download behavior" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="AfterDescText" Text="What Grabsy does right after a download finishes." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ComboBox x:Name="AfterBox" Grid.Column="1" Width="240" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem x:Name="AfterNothingItem" Content="Do nothing" Tag="nothing" />
+                                            <ComboBoxItem x:Name="AfterOpenFileItem" Content="Open file" Tag="open-file" />
+                                            <ComboBoxItem x:Name="AfterOpenFolderItem" Content="Show in folder" Tag="open-folder" />
+                                        </ComboBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <TextBlock x:Name="AppMgmtText" Text="App management" Style="{StaticResource GrabsyBodyStrong}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="AutostartTitleText" Text="Start with Windows" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="AutostartDescText" Text="Launch Grabsy when you sign in." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="AutostartSwitch" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}"
+                                                      Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="CloseTrayTitleText" Text="Minimize to tray on close" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="CloseTrayDescText" Text="Closing the window hides Grabsy to the tray instead of exiting." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="CloseTraySwitch" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}"
+                                                      Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="OverwriteTitle" Text="Overwrite files with the same name" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="OverwriteDesc" Text="When on, a new download replaces an existing file with the same name. When off, it is saved alongside as (1), (2)…" Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="OverwriteSwitch" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}"
+                                                      Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="UpdatesTitleText" Text="Updates" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="AppUpdateStatus" Text="How often Grabsy checks for a new version."
+                                                       Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                            <ComboBox x:Name="UpdateIntervalBox" Width="150" SelectionChanged="OnAnyControlChanged">
+                                                <ComboBoxItem x:Name="IntHourlyItem" Content="Hourly" Tag="hourly" />
+                                                <ComboBoxItem x:Name="IntDailyItem" Content="Daily" Tag="daily" />
+                                                <ComboBoxItem x:Name="IntWeeklyItem" Content="Weekly" Tag="weekly" />
+                                                <ComboBoxItem x:Name="IntMonthlyItem" Content="Monthly" Tag="monthly" />
+                                                <ComboBoxItem x:Name="IntNeverItem" Content="Never" Tag="never" />
+                                            </ComboBox>
+                                            <Button x:Name="BtnCheckNow" Style="{StaticResource GrabsyButtonGhost}" Click="OnCheckUpdates">
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon Glyph="&#xE72C;" FontSize="13" />
+                                                    <TextBlock x:Name="CheckNowTxt" Text="Check now" />
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== Video ===== -->
+                        <StackPanel x:Name="PaneVideo" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="VidTitleText" Text="Video" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="VidSubText" Text="Defaults pre-selected for every new link." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="DefModeTitleText" Text="Default mode" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="DefModeDescText" Text="Whether new links start as video or audio-only." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ComboBox x:Name="ModeBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem x:Name="ModeVideoItem" Content="Video" Tag="video" />
+                                            <ComboBoxItem x:Name="ModeAudioItem" Content="Audio only" Tag="audio" />
+                                        </ComboBox>
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="QualityTitleText" Grid.Column="0" Text="Quality" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                        <ComboBox x:Name="QualityBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem x:Name="QualBestItem" Content="Best available" Tag="best" />
+                                            <ComboBoxItem Content="2160p (4K)" Tag="2160" />
+                                            <ComboBoxItem Content="1440p (2K)" Tag="1440" />
+                                            <ComboBoxItem Content="1080p" Tag="1080" />
+                                            <ComboBoxItem Content="720p" Tag="720" />
+                                            <ComboBoxItem Content="480p" Tag="480" />
+                                        </ComboBox>
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="ContainerTitleText" Grid.Column="0" Text="Container" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                        <ComboBox x:Name="ContainerBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem Content="MP4" Tag="mp4" />
+                                            <ComboBoxItem Content="MKV" Tag="mkv" />
+                                            <ComboBoxItem Content="WEBM" Tag="webm" />
+                                        </ComboBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="10">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock x:Name="CodecTitleText" Text="Codec" Style="{StaticResource GrabsyBodyStrong}" />
+                                        <TextBlock x:Name="CodecDescText" Text="How the video is compressed. Affects size, quality and compatibility."
+                                                   Style="{StaticResource GrabsyHelper}" />
+                                    </StackPanel>
+                                    <StackPanel Spacing="6">
+                                        <RadioButton x:Name="CodecAuto" Style="{StaticResource GrabsyRadioCard}" GroupName="Codec" Tag="auto" Checked="OnAnyControlChanged">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock x:Name="CodecAutoTitle" Text="Automatic" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}" />
+                                                <TextBlock x:Name="CodecAutoDescText" Text="Let yt-dlp pick the best available codec" FontSize="11" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="CodecH264" Style="{StaticResource GrabsyRadioCard}" GroupName="Codec" Tag="h264" Checked="OnAnyControlChanged">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="H.264 / AVC" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}" />
+                                                <TextBlock x:Name="CodecH264DescText" Text="Most compatible, hardware-accelerated" FontSize="11" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="CodecH265" Style="{StaticResource GrabsyRadioCard}" GroupName="Codec" Tag="h265" Checked="OnAnyControlChanged">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="H.265 / HEVC" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}" />
+                                                <TextBlock x:Name="CodecH265DescText" Text="Smaller files, slower to decode on old hardware" FontSize="11" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="CodecVp9" Style="{StaticResource GrabsyRadioCard}" GroupName="Codec" Tag="vp9" Checked="OnAnyControlChanged">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="VP9" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}" />
+                                                <TextBlock x:Name="CodecVp9DescText" Text="Web-friendly, open codec" FontSize="11" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                        <RadioButton x:Name="CodecAv1" Style="{StaticResource GrabsyRadioCard}" GroupName="Codec" Tag="av1" Checked="OnAnyControlChanged">
+                                            <StackPanel Spacing="2">
+                                                <TextBlock Text="AV1" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}" />
+                                                <TextBlock x:Name="CodecAv1DescText" Text="Smallest files, newest codec" FontSize="11" />
+                                            </StackPanel>
+                                        </RadioButton>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="EmbedThumbTitleText" Text="Embed thumbnail" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="EmbedThumbDescText" Text="Save the cover image inside the file." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="EmbedThumb" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="EmbedMetaTitleText" Text="Embed metadata" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="EmbedMetaDescText" Text="Write title, uploader and chapters into the file." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="EmbedMeta" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== Audio ===== -->
+                        <StackPanel x:Name="PaneAudio" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="AudTitleText" Text="Audio" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="AudSubText" Text="Used when downloading in audio-only mode." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="FormatTitleText" Text="Format" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="FormatDescText" Text="Best source keeps the original audio without re-encoding." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ComboBox x:Name="AudioFormatBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem x:Name="ABestSourceItem" Content="Best source" Tag="best" />
+                                            <ComboBoxItem Content="MP3" Tag="mp3" />
+                                            <ComboBoxItem Content="M4A" Tag="m4a" />
+                                            <ComboBoxItem Content="Opus" Tag="opus" />
+                                            <ComboBoxItem Content="FLAC" Tag="flac" />
+                                        </ComboBox>
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="AQualityTitleText" Grid.Column="0" Text="Quality" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                        <ComboBox x:Name="AudioQualityBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem Content="Best" Tag="best" />
+                                            <ComboBoxItem Content="320 kbps" Tag="320" />
+                                            <ComboBoxItem Content="256 kbps" Tag="256" />
+                                            <ComboBoxItem Content="192 kbps" Tag="192" />
+                                            <ComboBoxItem Content="128 kbps" Tag="128" />
+                                        </ComboBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== Subtitles ===== -->
+                        <StackPanel x:Name="PaneSubs" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="SubsTitleText" Text="Subtitles" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="SubsSubText" Text="Per-video languages are chosen in the main window. These are the defaults." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="PreselectTitleText" Text="Pre-select all languages" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="PreselectDescText" Text="Tick every available subtitle by default." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="AllSubs" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="SepSrtTitleText" Text="Save as separate .srt" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="SepSrtDescText" Text="Off embeds subtitles into the video file." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ToggleButton x:Name="WriteSubs" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== Notifications ===== -->
+                        <StackPanel x:Name="PaneNotifications" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="NotifTitleText" Text="Notifications" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="NotifSubText" Text="Choose which events show a toast." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="ShowNotifText" Grid.Column="0" Text="Show notifications" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                        <ToggleButton x:Name="NotifyMaster" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnNotifyMasterToggled" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <StackPanel x:Name="NotifySubPanel" Spacing="14">
+                                        <Grid ColumnSpacing="16">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="NotifCompleteText" Grid.Column="0" Text="Download complete" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                            <ToggleButton x:Name="NotifyComplete" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                        </Grid>
+                                        <Grid ColumnSpacing="16">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="NotifErrorsText" Grid.Column="0" Text="Errors" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                            <ToggleButton x:Name="NotifyError" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                        </Grid>
+                                        <Grid ColumnSpacing="16">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="NotifUpdateText" Grid.Column="0" Text="App update available" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
+                                            <ToggleButton x:Name="NotifyUpdate" Grid.Column="1" Style="{StaticResource GrabsyMiniToggle}" Click="OnAnyToggleChanged" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== Components ===== -->
+                        <StackPanel x:Name="PaneComponents" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Spacing="4">
+                                <TextBlock x:Name="CompTitleText" Text="Components" Style="{StaticResource GrabsySectionTitle}" />
+                                <TextBlock x:Name="CompSubText" Text="Stored in the app data folder, separate from any yt-dlp on your PATH." Style="{StaticResource GrabsyHelper}" />
+                            </StackPanel>
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="16">
+                                    <Grid ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="YtDlpLabel" Text="yt-dlp" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="YtDlpStatus" Text="Checking…" Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                            <Button x:Name="UpdateYtDlpButton" Style="{StaticResource GrabsyButtonGhost}"
+                                                    Content="Check for updates" Click="OnUpdateYtDlp" />
+                                            <Button x:Name="RemoveYtDlpButton" Style="{StaticResource GrabsyIconButtonDanger}"
+                                                    Click="OnRemoveYtDlp" ToolTipService.ToolTip="Remove">
+                                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" FontSize="14" />
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="FfmpegLabel" Text="ffmpeg" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="FfmpegStatus" Text="Checking…" Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                            <Button x:Name="ReinstallFfmpegButton" Style="{StaticResource GrabsyButtonGhost}"
+                                                    Content="Reinstall" Click="OnReinstallFfmpeg" />
+                                            <Button x:Name="RemoveFfmpegButton" Style="{StaticResource GrabsyIconButtonDanger}"
+                                                    Click="OnRemoveFfmpeg" ToolTipService.ToolTip="Remove">
+                                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" FontSize="14" />
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock x:Name="FfmpegNote"
+                                               Text="ffmpeg is required to merge video with audio and to convert formats (MP4/MKV, MP3, VP9, AV1…). Removing it disables those downloads until you reinstall."
+                                               Style="{StaticResource GrabsyHelper}" TextWrapping="Wrap" />
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid ColumnSpacing="16">
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
+                                            <TextBlock x:Name="YtBehaviorTitleText" Text="yt-dlp update behavior" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="YtBehaviorDescText" Text="Whether Grabsy refreshes yt-dlp on its own." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <ComboBox x:Name="UpdateBehaviorBox" Grid.Column="1" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                  SelectionChanged="OnAnyControlChanged">
+                                            <ComboBoxItem x:Name="BehAskItem" Content="Ask before updating" Tag="ask" />
+                                            <ComboBoxItem x:Name="BehAutoItem" Content="Update automatically" Tag="auto" />
+                                            <ComboBoxItem x:Name="BehNeverItem" Content="Never check" Tag="never" />
+                                        </ComboBox>
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock x:Name="BridgeTitleText" Text="Browser integration" Style="{StaticResource GrabsyBodyStrong}" />
+                                        <TextBlock x:Name="BridgeDescText" TextWrapping="Wrap" Style="{StaticResource GrabsyHelper}"
+                                                   Text="Adds a one-click download button on YouTube and other sites via a Tampermonkey userscript. Keep Grabsy running to receive links." />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button x:Name="InstallScriptButton" Style="{StaticResource GrabsyButtonPrimary}"
+                                                Content="Install browser script" Click="OnInstallUserscript" />
+                                        <Button x:Name="GetTamperButton" Style="{StaticResource GrabsyButtonGhost}"
+                                                Content="Get Tampermonkey" Click="OnGetTampermonkey" />
+                                    </StackPanel>
+                                    <TextBlock x:Name="BridgeHintText" TextWrapping="Wrap" Style="{StaticResource GrabsyHelper}"
+                                               Text="Tampermonkey must be installed first. The script then opens for one-click install." />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- ===== About ===== -->
+                        <StackPanel x:Name="PaneAbout" Spacing="16" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+                                <Border Width="64" Height="64" CornerRadius="14" Background="{ThemeResource GrabsyAccentBrush}">
+                                    <FontIcon Glyph="&#xE896;" FontSize="28" Foreground="Black" />
+                                </Border>
+                                <StackPanel Spacing="6" VerticalAlignment="Center">
+                                    <TextBlock Text="Grabsy" FontSize="26" FontWeight="{StaticResource GrabsyFontWeightTitle}"
+                                               Foreground="{ThemeResource GrabsyTextBrush}" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                        <Border Background="{ThemeResource GrabsyBg2Brush}" BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}"
+                                                BorderThickness="1" CornerRadius="6" Padding="10,3">
+                                            <TextBlock x:Name="VersionLabel" Style="{StaticResource GrabsyMono}" FontSize="11" />
+                                        </Border>
+                                        <TextBlock x:Name="BuildDateLabel" Style="{StaticResource GrabsyHelper}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border Style="{StaticResource GrabsyGroupCard}">
+                                <StackPanel Spacing="14">
+                                    <StackPanel Spacing="2">
+                                        <TextBlock x:Name="AboutAuthorText" Text="Author" Style="{StaticResource GrabsyBodyStrong}" />
+                                        <TextBlock Text="Sidiusz" Style="{StaticResource GrabsyHelper}" />
+                                    </StackPanel>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                                            <TextBlock Text="github.com/Sidiusz/yt-dlp-gui" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="AboutSourceText" Text="Source, issues, releases" Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <HyperlinkButton x:Name="AboutOpen1" Grid.Column="1" Content="Open"
+                                                         NavigateUri="https://github.com/Sidiusz/yt-dlp-gui" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <Border Style="{StaticResource GrabsyHairline}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                                            <TextBlock x:Name="AboutPoweredText" Text="Powered by yt-dlp" Style="{StaticResource GrabsyBodyStrong}" />
+                                            <TextBlock x:Name="AboutPoweredDescText" Text="The downloader engine this app drives." Style="{StaticResource GrabsyHelper}" />
+                                        </StackPanel>
+                                        <HyperlinkButton x:Name="AboutOpen2" Grid.Column="1" Content="Open"
+                                                         NavigateUri="https://github.com/yt-dlp/yt-dlp" VerticalAlignment="Center" />
+                                    </Grid>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+
+            <!-- ============== Footer ============== -->
+            <Border Grid.Row="1" Grid.Column="1"
+                    Background="{ThemeResource GrabsyBg0Brush}"
+                    BorderBrush="{ThemeResource GrabsyBorderSubtleBrush}"
+                    BorderThickness="0,1,0,0" Padding="20,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                        <Button x:Name="BtnReset" Style="{StaticResource GrabsyButtonDanger}" Content="Reset" Click="OnReset" MinWidth="120" />
+
+                        <TextBlock x:Name="FooterStatusText" Style="{StaticResource GrabsyHelper}" Margin="12,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button x:Name="BtnClose" Content="Close" Style="{StaticResource GrabsyButtonGhost}" Click="OnClose" MinWidth="120" />
+                        <Button x:Name="BtnSave" Style="{StaticResource GrabsyButtonPrimary}" Content="Save changes" Click="OnSave" MinWidth="120" IsEnabled="False" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
