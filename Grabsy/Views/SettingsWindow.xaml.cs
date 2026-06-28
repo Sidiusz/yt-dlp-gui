@@ -416,9 +416,8 @@ public sealed partial class SettingsWindow : Window
             {
                 if (UpdateService.IsNewer(result.Info.Version, UpdateService.CurrentVersion()))
                 {
-                    AppUpdateStatus.Text = $"Version {result.Info.Version} available.";
-                    var url = string.IsNullOrEmpty(result.Info.Url) ? UpdateService.ReleasesPage : result.Info.Url;
-                    try { System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true }); } catch { }
+                    AppUpdateStatus.Text = $"Version {result.Info.Version} available — opening download…";
+                    UpdateService.OpenDownload(result.Info);   // checking is auto, download is manual
                 }
                 else AppUpdateStatus.Text = "You are on the latest version.";
             }

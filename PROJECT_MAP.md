@@ -22,7 +22,7 @@ Use grep/search first. Map is authoritative.
 - `SettingsService.cs` - AppSettings model + JSON persistence (LocalAppData\Grabsy)
 - `BinaryManager.cs` - download/update/remove yt-dlp + ffmpeg into LocalAppData\Grabsy\bin (never PATH)
 - `YtDlpService.cs` - probe (-J) + download with progress parse; DownloadOptions + arg builder (codec sort, trim sections, all-langs, 403 retry flags); pre-resolves exact output path so Play opens the real file
-- `UpdateService.cs` - app self-update check (GitHub releases of Sidiusz/yt-dlp-gui)
+- `UpdateService.cs` - app self-update CHECK only (download is manual): cache-busted GitHub Releases API → raw update.json/changelog fallback → web-redirect; OpenDownload opens the .exe asset/releases page in the browser
 - `NotificationService.cs` - download/update notifications; tray balloon is primary (unpackaged toasts register but never display), AppNotification toast only as last resort
 - `BridgeServer.cs` - loopback HTTP listener (127.0.0.1:47821) for the browser userscript: /ping, /download?url=&mode=&quality= (background job, returns id), /status?id= (progress/state poll), /cancel?id=
 - `RelayCommand.cs` - minimal ICommand (tray left-click)
