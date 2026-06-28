@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grabsy Downloader
 // @namespace    https://github.com/Sidiusz/yt-dlp-gui
-// @version      3.1.0
+// @version      1.0.0
 // @description  One-click background downloads to the Grabsy desktop app, embedded next to the YouTube like bar (and the Shorts action bar).
 // @author       Sidiusz
 // @match        *://*.youtube.com/*
@@ -21,7 +21,7 @@
     const PORT = 47821;
     const BASE = "http://127.0.0.1:" + PORT;
     const RELEASES = "https://github.com/Sidiusz/yt-dlp-gui/releases";
-    const ACCENT = "#E87D0D";
+    const ACCENT = "#F8006B";
 
     const xhr = (typeof GM_xmlhttpRequest !== "undefined")
         ? GM_xmlhttpRequest

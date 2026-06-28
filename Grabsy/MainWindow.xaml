@@ -27,7 +27,7 @@
         <Grid Grid.Row="0" Background="{ThemeResource GrabsyBg0Brush}">
             <Border x:Name="AppTitleBar" Background="Transparent">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,0,0" Spacing="9">
-                    <Border Width="18" Height="18" CornerRadius="5" Background="{ThemeResource GrabsyAccentBrush}" />
+                    <Image Width="18" Height="18" Source="ms-appx:///Assets/Icons/grabsy-32.png" />
                     <TextBlock Text="Grabsy" Style="{StaticResource GrabsyBodyStrong}" VerticalAlignment="Center" />
                     <TextBlock Text="yt-dlp" Style="{StaticResource GrabsyHelper}" VerticalAlignment="Center" Margin="2,1,0,0" />
                 </StackPanel>
@@ -103,6 +103,7 @@
                             </Border>
                             <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
                                 <TextBlock x:Name="InfoTitle" Style="{StaticResource GrabsyBodyStrong}"
+                                           FontSize="15" Foreground="{ThemeResource GrabsyTextBrush}"
                                            TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
                                 <TextBlock x:Name="InfoUploader" Style="{StaticResource GrabsyHelper}" />
                                 <StackPanel Orientation="Horizontal" Spacing="6">

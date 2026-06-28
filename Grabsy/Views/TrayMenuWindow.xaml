@@ -15,9 +15,9 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Width="32" Height="32" CornerRadius="8"
-                        Background="{ThemeResource GrabsyAccentBrush}"
-                        VerticalAlignment="Top" Margin="0,2,0,0" />
+                <Image Width="32" Height="32"
+                       Source="ms-appx:///Assets/Icons/grabsy-64.png"
+                       VerticalAlignment="Top" Margin="0,2,0,0" />
                 <StackPanel Grid.Column="1" Margin="10,0,10,0"
                             VerticalAlignment="Center" Spacing="1">
                     <TextBlock Text="Grabsy" FontSize="13" FontWeight="{StaticResource GrabsyFontWeightStrong}"

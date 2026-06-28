@@ -22,19 +22,21 @@ public static class NotificationService
     public static void Unregister() { }
     public static void SetTrayFallback(Action<string, string> _) { }
 
-    public static void Show(string title, string body, Kind kind = Kind.Info)
+    public static void Show(string title, string body, Kind kind = Kind.Info,
+        Action? action = null, string? actionGlyph = null, string? actionTip = null)
     {
         if (!SettingsService.Instance.Settings.NotificationsEnabled) return;
         var dq = _dq;
         if (dq == null) return;
-        dq.TryEnqueue(() => ShowOnUi(title, body, kind));
+        dq.TryEnqueue(() => ShowOnUi(title, body, kind, action, actionGlyph, actionTip));
     }
 
-    private static void ShowOnUi(string title, string body, Kind kind)
+    private static void ShowOnUi(string title, string body, Kind kind,
+        Action? action, string? actionGlyph, string? actionTip)
     {
         try
         {
-            var toast = new Views.ToastWindow(title, body, kind);
+            var toast = new Views.ToastWindow(title, body, kind, action, actionGlyph, actionTip);
             toast.Closed += OnToastClosed;
             _active.Add(toast);
             RepositionAll();
@@ -58,10 +60,27 @@ public static class NotificationService
             _active[i].PositionAtSlot(i);
     }
 
-    public static void DownloadComplete(string title)
+    public static void DownloadComplete(string title, string? path = null)
     {
         if (!SettingsService.Instance.Settings.NotifyDownloadComplete) return;
-        Show("Download complete", title, Kind.Success);
+        Action? open = null;
+        if (!string.IsNullOrEmpty(path))
+            open = () =>
+            {
+                try
+                {
+                    if (System.IO.File.Exists(path))
+                        System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{path}\"");
+                    else
+                    {
+                        var dir = System.IO.Path.GetDirectoryName(path);
+                        if (!string.IsNullOrEmpty(dir)) System.Diagnostics.Process.Start("explorer.exe", $"\"{dir}\"");
+                    }
+                }
+                catch { }
+            };
+        // E838 = open folder glyph.
+        Show("Download complete", title, Kind.Success, open, "", "Open folder");
     }
 
     public static void DownloadFailed(string title)

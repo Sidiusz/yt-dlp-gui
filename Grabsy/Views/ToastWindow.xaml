@@ -36,13 +36,20 @@
                                    TextWrapping="Wrap"
                                    Visibility="Collapsed" />
                     </StackPanel>
-                    <Button x:Name="CloseBtn" Grid.Column="1"
-                            Style="{StaticResource GrabsyButtonGhost}"
-                            Width="28" Height="28" Padding="0"
-                            VerticalAlignment="Center"
-                            Click="OnCloseClick">
-                        <FontIcon Glyph="&#xE711;" FontSize="10" />
-                    </Button>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="4"
+                                VerticalAlignment="Center" Margin="8,0,0,0">
+                        <Button x:Name="ActionBtn"
+                                Style="{StaticResource GrabsyButtonGhost}"
+                                Width="28" Height="28" Padding="0"
+                                Visibility="Collapsed"
+                                Click="OnActionClick" />
+                        <Button x:Name="CloseBtn"
+                                Style="{StaticResource GrabsyButtonGhost}"
+                                Width="28" Height="28" Padding="0"
+                                Click="OnCloseClick">
+                            <FontIcon Glyph="&#xE711;" FontSize="10" />
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Border>

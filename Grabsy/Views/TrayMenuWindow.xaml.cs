@@ -37,7 +37,7 @@ public sealed partial class TrayMenuWindow : Window
     private readonly Dictionary<Grid, ItemParts> _parts = new();
 
     private const int MenuW = 264;
-    private const int MenuH = 272;
+    private const int MenuH = 260;
 
     public TrayMenuWindow()
     {

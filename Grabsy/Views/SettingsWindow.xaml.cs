@@ -33,6 +33,7 @@ public sealed partial class SettingsWindow : Window
         var appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd));
         appWindow.Title = "Grabsy — Settings";
         appWindow.Resize(new SizeInt32(940, 640));
+        try { appWindow.SetIcon("Assets\\Icons\\grabsy.ico"); } catch { }
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
         try

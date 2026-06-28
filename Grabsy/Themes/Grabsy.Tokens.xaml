@@ -39,11 +39,11 @@
 
             <!-- Brand accent: amber/orange. Hover slightly lighter, Pressed
                  darker, Dim = same hue at low alpha for subtle backgrounds. -->
-            <Color x:Key="GrabsyAccent">#FFE87D0D</Color>
-            <Color x:Key="GrabsyAccentHover">#FFFF9333</Color>
-            <Color x:Key="GrabsyAccentPressed">#FFC66808</Color>
-            <Color x:Key="GrabsyAccentDim">#28E87D0D</Color>
-            <Color x:Key="GrabsyAccentDimStrong">#3DE87D0D</Color>
+            <Color x:Key="GrabsyAccent">#FFF8006B</Color>
+            <Color x:Key="GrabsyAccentHover">#FFFF3D90</Color>
+            <Color x:Key="GrabsyAccentPressed">#FFC80057</Color>
+            <Color x:Key="GrabsyAccentDim">#28F8006B</Color>
+            <Color x:Key="GrabsyAccentDimStrong">#3DF8006B</Color>
 
             <!-- Semantic -->
             <Color x:Key="GrabsyDanger">#FFF23F42</Color>
@@ -80,7 +80,7 @@
             <SolidColorBrush x:Key="GrabsyAccentDimBrush"      Color="{StaticResource GrabsyAccentDim}" />
             <SolidColorBrush x:Key="GrabsyAccentDimStrongBrush" Color="{StaticResource GrabsyAccentDimStrong}" />
             <!-- Codec / RadioCard checked fill — amber tint at low alpha -->
-            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33E87D0D" />
+            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33F8006B" />
 
             <SolidColorBrush x:Key="GrabsyDangerBrush"         Color="{StaticResource GrabsyDanger}" />
             <SolidColorBrush x:Key="GrabsyDangerHoverBrush"    Color="{StaticResource GrabsyDangerHover}" />
@@ -173,11 +173,11 @@
             <Color x:Key="GrabsyText4">#FFA8ADB4</Color>
 
             <!-- Accent: same brand amber; pressed darker for contrast on light -->
-            <Color x:Key="GrabsyAccent">#FFE87D0D</Color>
-            <Color x:Key="GrabsyAccentHover">#FFD97408</Color>
-            <Color x:Key="GrabsyAccentPressed">#FFB85F06</Color>
-            <Color x:Key="GrabsyAccentDim">#28E87D0D</Color>
-            <Color x:Key="GrabsyAccentDimStrong">#3DE87D0D</Color>
+            <Color x:Key="GrabsyAccent">#FFF8006B</Color>
+            <Color x:Key="GrabsyAccentHover">#FFD90060</Color>
+            <Color x:Key="GrabsyAccentPressed">#FFB8004F</Color>
+            <Color x:Key="GrabsyAccentDim">#28F8006B</Color>
+            <Color x:Key="GrabsyAccentDimStrong">#3DF8006B</Color>
 
             <!-- Semantic -->
             <Color x:Key="GrabsyDanger">#FFD93C3F</Color>
@@ -213,7 +213,7 @@
             <SolidColorBrush x:Key="GrabsyAccentPressedBrush"  Color="{StaticResource GrabsyAccentPressed}" />
             <SolidColorBrush x:Key="GrabsyAccentDimBrush"      Color="{StaticResource GrabsyAccentDim}" />
             <SolidColorBrush x:Key="GrabsyAccentDimStrongBrush" Color="{StaticResource GrabsyAccentDimStrong}" />
-            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33E87D0D" />
+            <SolidColorBrush x:Key="GrabsyCodecSelectedBrush"  Color="#33F8006B" />
 
             <SolidColorBrush x:Key="GrabsyDangerBrush"         Color="{StaticResource GrabsyDanger}" />
             <SolidColorBrush x:Key="GrabsyDangerHoverBrush"    Color="{StaticResource GrabsyDangerHover}" />

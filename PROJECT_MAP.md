@@ -34,7 +34,7 @@ Use grep/search first. Map is authoritative.
 
 ### Views/
 - `SettingsWindow.xaml` / `.cs` - Clipsy-style left-nav (940x640, sidebar+tip, Reset/Close/Save footer, mini-toggles): General (language/theme/folder/after/app-mgmt), Video, Audio, Subtitles, Notifications, Components (yt-dlp/ffmpeg install/update/remove), About. Save persists without closing; ApplyLocalization (en/ru) with live language preview
-- `ToastWindow.xaml` / `.cs` - self-drawn notification toast (layered top-most window, slide-in, auto-dismiss, stacking) ported from Clipsy; used by NotificationService
+- `ToastWindow.xaml` / `.cs` - self-drawn notification toast (layered top-most window, slide-in, auto-dismiss, stacking) ported from Clipsy; optional action button (download-complete toast = Open folder); used by NotificationService
 - `TrayMenuWindow.xaml` / `.cs` - custom tray popup ported literally from Clipsy (layered popup, DWM cloak, cursor positioning, fade-in, hover/press rows): Paste & download / Open Grabsy / Open video folder / Settings / Exit
 
 ### Localization/
@@ -46,7 +46,7 @@ Use grep/search first. Map is authoritative.
 
 ### Assets/
 - `Fonts/Onest-VariableFont_wght.ttf` - app font
-- `Icons/grabsy.ico` - placeholder app icon
+- `Icons/` - `grabsy.ico` (exe + taskbar + tray) + `grabsy-{16..2048}.png` (titlebars use -32, tray header uses -64) + README; placeholders, replace artwork keeping names
 - `grabsy.user.js` - Tampermonkey userscript (v3): "Grabsy" button left of the YouTube like bar (and round button in the Shorts action bar) → popover with mode/quality/Download; no floating button; calls bridge, polls /status, in-page progress toast with real % and Cancel (→/cancel), auto-closes 5s; popover follows its button on scroll; defaults pulled from /config; app-missing → opens GitHub releases; @updateURL/@downloadURL = GitHub raw for auto-update
 
 ## Data locations (runtime)

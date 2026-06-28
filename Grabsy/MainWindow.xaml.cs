@@ -711,7 +711,7 @@ public sealed partial class MainWindow : Window
             // Process callbacks run off-thread; marshal job/UI mutations back here.
             void Ui(Action a) => DispatcherQueue.TryEnqueue(() => a());
             await _yt.DownloadAsync(job, o, ct, Ui);
-            if (job.State == JobState.Completed) { SetSizeDate(job); RunAfterAction(job); NotificationService.DownloadComplete(job.Title); }
+            if (job.State == JobState.Completed) { SetSizeDate(job); RunAfterAction(job); NotificationService.DownloadComplete(job.Title, job.OutputPath); }
             else if (job.State == JobState.Failed) NotificationService.DownloadFailed(job.Title);
         }
         catch (Exception ex)

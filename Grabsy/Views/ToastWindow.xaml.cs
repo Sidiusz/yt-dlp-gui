@@ -22,7 +22,7 @@ public sealed partial class ToastWindow : Window
     private static readonly Color s_green = Color.FromArgb(0xFF, 0x23, 0xA5, 0x5A);
     private static readonly Color s_red   = Color.FromArgb(0xFF, 0xF2, 0x3F, 0x42);
     private static readonly Color s_blue  = Color.FromArgb(0xFF, 0x3B, 0x82, 0xF6);
-    private static readonly Color s_amber = Color.FromArgb(0xFF, 0xE8, 0x7D, 0x0D);
+    private static readonly Color s_amber = Color.FromArgb(0xFF, 0xF8, 0x00, 0x6B);
 
     private const int ToastW      = 360;
     private const int MinH        = 50;
@@ -38,16 +38,32 @@ public sealed partial class ToastWindow : Window
     private bool _isHovered, _fadeInDone, _isFadingOut;
     private int _targetX, _targetY, _w, _h, _offscreenX;
 
-    public ToastWindow(string title, string? body, NotificationService.Kind kind)
+    private readonly Action? _action;
+
+    public ToastWindow(string title, string? body, NotificationService.Kind kind,
+        Action? action = null, string? actionGlyph = null, string? actionTip = null)
     {
         InitializeComponent();
         _hwnd = WindowNative.GetWindowHandle(this);
         _appWindow = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(_hwnd));
 
+        _action = action;
         ConfigureWindow();
         ApplyContent(title, body, kind);
+        if (action != null)
+        {
+            ActionBtn.Content = new FontIcon { Glyph = actionGlyph ?? "", FontSize = 13 };
+            if (!string.IsNullOrEmpty(actionTip)) ToolTipService.SetToolTip(ActionBtn, actionTip);
+            ActionBtn.Visibility = Visibility.Visible;
+        }
         ThemeService.Register(Content as FrameworkElement);
         StartDismissTimer();
+    }
+
+    private void OnActionClick(object sender, RoutedEventArgs e)
+    {
+        BeginFadeOut();
+        try { _action?.Invoke(); } catch { }
     }
 
     internal void PositionAtSlot(int index)
